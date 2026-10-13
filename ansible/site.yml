@@ -1,0 +1,72 @@
+
+
+- name:  Docker on Ubuntu
+  hosts: web
+  become: true
+  gather_facts: true
+
+  vars_files:
+    - vars.yml
+
+  
+  tasks:
+    - name: Verify Ubuntu operating system
+      ansible.builtin.assert:
+        that:
+          - ansible_distribution == "Ubuntu"
+        fail_msg: "This playbook requires Ubuntu."
+
+    - name: Install required dependencies
+      ansible.builtin.apt:
+        name: "{{ docker_apt_dependencies }}"
+        state: present
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Create APT keyring directory
+      ansible.builtin.file:
+        path: /etc/apt/keyrings
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Download Docker GPG key
+      ansible.builtin.get_url:
+        url: "{{ docker_repo_url }}/gpg"
+        dest: "{{ docker_repo_keyring }}"
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Add Docker APT repository
+      ansible.builtin.apt_repository:
+        repo: >-
+          deb [arch={{ docker_apt_arch }}
+          signed-by={{ docker_repo_keyring }}]
+          {{ docker_repo_url }}
+          {{ docker_apt_release }} stable
+        filename: docker
+        state: present
+        update_cache: true
+
+    - name: Install Docker Engine and Compose plugin
+      ansible.builtin.apt:
+        name: "{{ docker_packages }}"
+        state: present
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Ensure Docker service is enabled and running
+      ansible.builtin.systemd_service:
+        name: docker
+        enabled: true
+        state: started
+
+    - name: Create deployment directory
+      ansible.builtin.file:
+        path: "{{ deployment_dir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"

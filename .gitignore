@@ -1,0 +1,41 @@
+Python
+
+pycache/
+*.py[cod]
+.pytest_cache/
+
+Virtual environments
+
+.venv/
+venv/
+env/
+
+Environment variables and secrets
+
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+*.tfstate
+.tfstate.
+crash.log
+
+Terraform
+
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+*.tfplan
+
+Ansible
+
+*.retry
+
+IDE and OS
+
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
