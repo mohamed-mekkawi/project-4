@@ -12,7 +12,7 @@ terraform {
 
 provider "aws" {
   region  = var.aws_region
-  profile = "user-terraform"
+  profile = var.aws_profile
 }
 
 data "aws_ami" "ubuntu" {

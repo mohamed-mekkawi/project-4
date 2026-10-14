@@ -23,4 +23,6 @@ variable "app_port" {
   type    = number
   default = 5000
 }
-
+variable "aws_profile" {
+  type = string
+}
