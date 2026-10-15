@@ -12,5 +12,7 @@ docker_apt_dependencies:
 
 docker_repo_url: "https://download.docker.com/linux/ubuntu"
 docker_repo_keyring: /etc/apt/keyrings/docker.asc
+docker_apt_arch: amd64
+docker_apt_release: noble
 
 deployment_dir: /opt/myapp
