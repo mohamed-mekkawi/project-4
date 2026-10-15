@@ -28,7 +28,7 @@ Terraform
 terraform.tfstate
 terraform.tfstate.backup
 *.tfplan
-
+*.tfvars
 Ansible
 
 *.retry
