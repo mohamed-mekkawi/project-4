@@ -48,7 +48,7 @@ jobs:
           directory: .
           framework: dockerfile,github_actions
           output_format: cli
-          soft_fail: true
+          
 
   job_2:
     name: Build and Scan Docker Image
