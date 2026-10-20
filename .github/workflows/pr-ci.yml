@@ -80,13 +80,11 @@ jobs:
 
       - name: Tag Docker Image
         run: |
-          docker tag project-app:ci moh001/project-4:latest
-          docker tag project-app:ci moh001/project-4:${{ github.sha }}
+          docker tag project-app:ci moh001/project-4:freeble
 
       - name: Push Docker Image
         run: |
-          docker push moh001/project-4:latest
-          docker push moh001/project-4:${{ github.sha }}
+          docker push moh001/project-4:freeble
 
   job_3:
     name: SonarQube analysis
